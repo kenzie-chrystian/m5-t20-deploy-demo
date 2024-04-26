@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Album {
+  id    Int    @id @default(autoincrement())
+  title String @db.VarChar(255)
+  year  Int
+
+  bandId Int
+
+  tracks Track[]
+  genres Genre[] @relation("AlbumGenrePivot")
+  band   Band    @relation(fields: [bandId], references: [id])
+}
+
+model Track {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(255)
+  trackNumber Int?
+  length      Int
+
+  albumId Int
+  album   Album @relation(fields: [albumId], references: [id])
+}
+
+model Genre {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(255)
+
+  albums Album[] @relation("AlbumGenrePivot")
+}
+
+model Band {
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(255)
+  foundedAt Int?
+
+  albums       Album[]
+  groupMembers GroupMember[]
+}
+
+model GroupMember {
+  id     Int       @id @default(autoincrement())
+  joined Int
+  left   DateTime? @db.Date
+
+  bandId Int
+  band   Band @relation(fields: [bandId], references: [id])
+
+  musicianId Int
+  musician   Musician @relation(fields: [musicianId], references: [id])
+}
+
+// YYYY-MM-DD
+model Musician {
+  id        Int       @id @default(autoincrement())
+  firstName String    @db.VarChar(255)
+  lastName  String    @db.VarChar(255)
+  birthDate DateTime? @db.Date
+
+  groupMembers GroupMember[]
+}
+
+model Account {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique @db.VarChar(50)
+  password      String   @db.VarChar(255)
+  favoriteColor String?  @db.VarChar(255)
+  role          Role     @default(USER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ENUM SQL
+enum Role {
+  USER
+  ADMIN
+}
