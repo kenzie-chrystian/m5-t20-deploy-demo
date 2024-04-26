@@ -1,0 +1,21 @@
+components:
+  schemas:
+    Band:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 1
+        name:
+          type: string
+          description: Required. 255 characters of fewer.
+          maxLength: 255
+          example: Minha Nova Banda
+        foundedAt:
+          type: integer
+          example: 1993
+          description: Optional. Positive integer.
+          nullable: true

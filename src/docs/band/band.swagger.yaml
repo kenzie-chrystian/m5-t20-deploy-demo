@@ -1,0 +1,60 @@
+paths:
+  /api/bands:
+    get:
+      tags:
+        - Bands
+      summary: List bands
+      description: List all bands.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Band"
+    post:
+      security:
+        - JWTAuth: []
+      tags:
+        - Bands
+      summary: Create band
+      description: Create and return a band.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Band"
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Band"
+        400:
+          $ref: "#/components/responses/BadRequest"
+  /api/bands/{bandId}:
+    get:
+      tags:
+        - Bands
+      parameters:
+        - name: bandId
+          in: path
+          description: Band id for retrieve.
+          required: true
+          schema:
+            type: integer
+      summary: Retrieve a band.
+      description: Retrieve a band by id.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Band"
+        404:
+          $ref: "#/components/responses/NotFound"

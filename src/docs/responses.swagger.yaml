@@ -1,0 +1,46 @@
+components:
+  responses:
+    BadRequest:
+      description: Mal formed req body.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ZodError"
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AppError"
+  schemas:
+    AppError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Resource not found."
+    ZodError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                example: invalid_type
+              expected:
+                type: string
+                example: string
+              received:
+                type: string
+                example: undefined
+              path:
+                type: array
+                items:
+                  type: string
+                  example: field_name_path
+              message:
+                type: string
+                example: "Required"
