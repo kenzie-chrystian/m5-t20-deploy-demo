@@ -13,7 +13,7 @@ Por que temos que buildar nosso projeto TS para deploy ?
 
 ### Entendendo o build na prática
 
-- [_] - Habilitar a opção _"outDir"_ no arquivo `tsconfig.json`:
+- [x] - Habilitar a opção _"outDir"_ no arquivo `tsconfig.json`:
 
 ```json
 {
@@ -26,13 +26,13 @@ Por que temos que buildar nosso projeto TS para deploy ?
 
 # Entendendo o processo de build localmente
 
-- [_] - Buildar localmente o projeto:
+- [x] - Buildar localmente o projeto (somente para exemplificação do processo de build. NÃO É NECESSARIO BUILDAR LOCALMENTE PARA O DEPLOY):
 
 ```
 npx tsc
 ```
 
-- [_] Adicionar 2 scripts ao `package.json`:
+- [x] Adicionar 2 scripts ao `package.json`:
 
 ```json
 {
@@ -46,7 +46,7 @@ npx tsc
 }
 ```
 
-- [_] Deletar diretório `dist` criado anteriormente para demonstrar os novos scripts:
+- [x] Deletar diretório `dist` criado anteriormente para demonstrar os novos scripts:
 
 ```bash
 npm run build
@@ -55,13 +55,13 @@ npm run start
 
 # Deploy Render
 
-- [_] - Logar no [Render](https://dashboard.render.com/)
-- [_] - Criar o serviço de banco de dados, escolhendo a versão free.
-- [_] - Criar web service para deploy da API.
-  - [_] - Buildar e deployar a partir de um repositório GIT.
-  - [_] - Linkar a sua conta do git com o Render.
-- [_] - Selecionar Node como Runtine do webservice
-- [_] - Adicionar comandos de build e start:
+- [x] - Logar no [Render](https://dashboard.render.com/)
+- [x] - Criar o serviço de banco de dados, escolhendo a versão free.
+- [x] - Criar web service para deploy da API.
+  - [x] - Buildar e deployar a partir de um repositório GIT.
+  - [x] - Linkar a sua conta do git com o Render.
+- [x] - Selecionar Node como Runtine do webservice
+- [x] - Adicionar comandos de build e start:
 
 ```bash
 # build command
@@ -81,10 +81,10 @@ yarn; yarn build; yarn migrate:deploy
 yarn start
 ```
 
-- [_] - Criar variáveis de ambiente:
-  - [_] - JWT_SECRET_KEY -> Gerar pelo render
-  - [_] - EXPIRES_IN -> 1h
-  - [_] - DATABASE_URL -> Pegar Internal Database URL do serviço de db criado anteriormente (necessário ser na mesma regiao), adicionando `?schema=public` ao final.
+- [x] - Criar variáveis de ambiente:
+  - [x] - JWT_SECRET_KEY -> Gerar pelo render
+  - [x] - EXPIRES_IN -> 1h
+  - [x] - DATABASE_URL -> Pegar Internal Database URL do serviço de db criado anteriormente (necessário ser na mesma regiao), adicionando `?schema=public` ao final.
 
 # CORS
 
@@ -106,10 +106,9 @@ npm install -D @types/cors
 
 Importar e usar no `app.ts`:
 
-```typescript
+```ts
 import cors from "cors";
 
 // ...
-
 app.use(cors());
 ```
